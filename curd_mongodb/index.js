@@ -32,7 +32,26 @@ app.get('/users',async (req, res) => {
     const users = await documents.find().toArray();
     res.send(users);
 })
-
+app.get('/updates/:id', async (req, res) => {
+  const filter ={_id: new ObjectId(req.params.id)}
+  const result = await documents.findOne(filter);
+  res.send(result);
+});
+app.put('/updates/:id', async (req, res) => {
+  
+  const user = req.body;
+  console.log(user,req.params.id);
+  const filter = {_id : new ObjectId(req.params.id)}
+  const option = { upsert:true}
+  const update ={
+    $set:{
+      name:user.name,
+      email:user.email
+    }
+  }
+  const result = await documents.updateOne(filter,update,option)
+  res.send(result);
+});
 app.post('/users',async(req,res) => {
     const user = req.body;
    const result = await documents.insertOne(user)

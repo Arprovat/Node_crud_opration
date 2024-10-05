@@ -23,6 +23,7 @@ function App() {
  }
   return (
     <>
+    <h1>CURD Operation</h1>
      <form onSubmit={handleSubmit}>
     <input type="text" name='name' /> <br />
     <input type="email" name="email" id="" /><br />
